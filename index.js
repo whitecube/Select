@@ -30,11 +30,11 @@ export default class Select {
     }
 
     setEvents() {
-    	document.addEventListener('click', (e) => {
-    		if(!this.$optionsContainer.contains(e.target) && !this.$active.contains(e.target)) {
-    			this.e_hideDropdown()
-    		} 
-		})
+        document.addEventListener('click', (e) => {
+            if(!this.$optionsContainer.contains(e.target) && !this.$active.contains(e.target)) {
+                this.e_hideDropdown()
+            } 
+        })
     }
 
     generateMarkup() {
