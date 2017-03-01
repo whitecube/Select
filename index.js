@@ -1,25 +1,25 @@
 export default class Select {
-	constructor($el, parentClass = false) {
-		this.isMultiple = false
-		this.setConf(parentClass)
-		this.setElement($el)
-		this.setEvents()
-		this.generateMarkup()
-	}
+    constructor($el, parentClass = false) {
+        this.isMultiple = false
+        this.setConf(parentClass)
+        this.setElement($el)
+        this.setEvents()
+        this.generateMarkup()
+    }
 
 	setConf(parentClass) {
 		let classname = parentClass || 'select'
-		this.conf = {
-			main: classname,
-			old: classname + '__old',
-			container: classname + '__container',
-			active: classname + '__active',
-			dropdown: classname + '__dropdown',
-			options: classname + '__options',
-			optionsHidden: classname + '__options--hidden',
-			option: classname + '__option',
-			selected: classname + '__option--selected'
-		}
+        this.conf = {
+            main: classname,
+            old: classname + '__old',
+            container: classname + '__container',
+            active: classname + '__active',
+            dropdown: classname + '__dropdown',
+            options: classname + '__options',
+            optionsHidden: classname + '__options--hidden',
+            option: classname + '__option',
+            selected: classname + '__option--selected'
+        }
 	}
 
     setElement($el) {
@@ -69,7 +69,7 @@ export default class Select {
 
     	// Option items
     	for(var i = 0; i < this.$el.children.length; i++) {
-    		this.$optionsContainer.appendChild(this.generateOption(this.$el.children[i]))
+            this.$optionsContainer.appendChild(this.generateOption(this.$el.children[i]))
     	}
     }
 
@@ -111,18 +111,18 @@ export default class Select {
     }
 
     findOptionByValue(value) {
-    	let options = this.$el.children
-    	for(var i = 0; i < options.length; i++) {
-    		if(options[i].value == value) {
-    			return options[i]
-    		}
-    	}
+        let options = this.$el.children
+            for(var i = 0; i < options.length; i++) {
+            if(options[i].value == value) {
+                return options[i]
+            }
+        }
     }
 
     deselectAll() {
-    	for(var i = 0; i < this.$el.children.length; i++) {
-    		this.$el.children[i].selected = false
-    		this.$optionsContainer.children[i].classList.remove(this.conf.selected)
-    	}
+        for(var i = 0; i < this.$el.children.length; i++) {
+            this.$el.children[i].selected = false
+            this.$optionsContainer.children[i].classList.remove(this.conf.selected)
+        }
     }
 }
