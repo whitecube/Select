@@ -73,10 +73,6 @@ export default class Select {
         }
     }
 
-    setText(text) {
-        this.$active.innerHTML = text
-    }
-
     e_toggleDropdown(e) {
         if(e) e.preventDefault()
         this.$optionsContainer.classList.toggle(this.conf.optionsHidden)
@@ -90,15 +86,6 @@ export default class Select {
         return this.$el.children[this.$el.selectedIndex]
     }
 
-    e_select(e) {
-        if(!this.isMultiple) this.deselectAll()
-        e.target.classList.add(this.conf.selected)
-        this.$el.value = e.target.dataset.value
-        this.$el.dispatchEvent(new Event('change'))
-        this.setText(e.target.innerHTML)
-        this.e_hideDropdown(e)
-    }
-
     generateOption(el) {
         let $new = document.createElement('a')
         $new.classList.add(this.conf.option)
@@ -106,7 +93,7 @@ export default class Select {
         $new.innerHTML = el.innerHTML
         $new.dataset.value = el.value
         $new.setAttribute('role', 'option')
-        $new.addEventListener('click', (e) => this.e_select(e), false)
+        $new.addEventListener('click', (e) => this.select(e), false)
         return $new
     }
 
@@ -117,6 +104,29 @@ export default class Select {
                 return options[i]
             }
         }
+    }
+
+    // API
+
+    changed(callback) {
+        this.$el.addEventListener('change', callback)
+    }
+
+    value() {
+        return this.$el.value
+    }
+
+    select(e) {
+        if(!this.isMultiple) this.deselectAll()
+        e.target.classList.add(this.conf.selected)
+        this.$el.value = e.target.dataset.value
+        this.$el.dispatchEvent(new Event('change'))
+        this.setText(e.target.innerHTML)
+        this.e_hideDropdown(e)
+    }
+
+    setText(text) {
+        this.$active.innerHTML = text
     }
 
     deselectAll() {
