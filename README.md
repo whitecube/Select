@@ -44,3 +44,13 @@ Please see the above snippet to know which class names to reference in your CSS 
 Changes the active/placeholder text.
 
 <br>
+
+#### `select.value()`
+Returns the value of the currently selected option.
+
+<br>
+
+#### `select.changed(callback)`
+Triggers your callback when the value changes  (equivalent to `addEventListener('change', callback)` on the original select element).
+
+<br>
