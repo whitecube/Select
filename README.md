@@ -10,7 +10,7 @@ When you click on the option items of the module, it will change the value of yo
 let select = new Select($el,[class])
 ```
 
-where `$el` represents the DOM node you want to bind the timer to.
+where `$el` represents the DOM node you want to bind the select to.
 `$el` can be the following:
 - A vanilla javascript DOM node
 - A jQuery element
