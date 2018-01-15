@@ -23,17 +23,16 @@ export default class Select {
     }
 
     setElement($el) {
-        if(typeof $el == 'string') return this.$el = document.querySelector($el)
-        if($el.jquery) return this.$el = $el.get()[0]
-        if($el[0]) return this.$el = $el[0]
+        if (typeof $el == 'string') return this.$el = document.querySelector($el)
+        if ($el.jquery) return this.$el = $el.get()[0]
         return this.$el = $el
     }
 
     setEvents() {
         document.addEventListener('click', (e) => {
-            if(!this.$optionsContainer.contains(e.target) && !this.$active.contains(e.target)) {
+            if (!this.$optionsContainer.contains(e.target) && !this.$active.contains(e.target)) {
                 this.e_hideDropdown()
-            } 
+            }
         })
     }
 
@@ -55,7 +54,7 @@ export default class Select {
         // Active option
         this.$active = document.createElement('a')
         this.$active.classList.add(this.conf.active)
-        this.$active.innerHTML = (this.getSelectedOption()).innerHTML
+        this.$active.innerHTML = this.$el.hasAttribute('data-placeholder') ? this.$el.getAttribute('data-placeholder') : (this.getSelectedOption()).innerHTML
         this.$active.addEventListener('click', (e) => this.e_toggleDropdown(e))
         newContainer.appendChild(this.$active)
 
@@ -68,13 +67,13 @@ export default class Select {
 
 
         // Option items
-        for(var i = 0; i < this.$el.children.length; i++) {
+        for (var i = 0; i < this.$el.children.length; i++) {
             this.$optionsContainer.appendChild(this.generateOption(this.$el.children[i]))
         }
     }
 
     e_toggleDropdown(e) {
-        if(e) e.preventDefault()
+        if (e) e.preventDefault()
         this.$optionsContainer.classList.toggle(this.conf.optionsHidden)
     }
 
@@ -84,7 +83,7 @@ export default class Select {
 
 
     e_select(e) {
-        if(!this.isMultiple) this.deselectAll()
+        if (!this.isMultiple) this.deselectAll()
         e.target.classList.add(this.conf.selected)
         this.$el.value = e.target.dataset.value
         this.$el.dispatchEvent(new Event('change'))
@@ -99,7 +98,7 @@ export default class Select {
     generateOption(el) {
         let $new = document.createElement('a')
         $new.classList.add(this.conf.option)
-        if(this.$el.value == el.value) $new.classList.add(this.conf.selected)
+        if (this.$el.value == el.value && !this.$el.hasAttribute('data-placeholder')) $new.classList.add(this.conf.selected)
         $new.innerHTML = el.innerHTML
         $new.dataset.value = el.value
         $new.setAttribute('role', 'option')
@@ -109,8 +108,8 @@ export default class Select {
 
     findOptionByValue(value) {
         let options = this.$el.children
-            for(var i = 0; i < options.length; i++) {
-            if(options[i].value == value) {
+        for (var i = 0; i < options.length; i++) {
+            if (options[i].value == value) {
                 return options[i]
             }
         }
@@ -131,7 +130,7 @@ export default class Select {
     }
 
     deselectAll() {
-        for(var i = 0; i < this.$el.children.length; i++) {
+        for (var i = 0; i < this.$el.children.length; i++) {
             this.$el.children[i].selected = false
             this.$optionsContainer.children[i].classList.remove(this.conf.selected)
         }
